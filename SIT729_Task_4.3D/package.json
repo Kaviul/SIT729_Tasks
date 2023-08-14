@@ -1,0 +1,20 @@
+{
+  "name": "sit729",
+  "version": "1.0.0",
+  "description": "IoT Data Testing",
+  "main": "iotsensor.js",
+  "scripts": {
+    "start": "node iotsensor.js"
+  },
+  "author": "MD KAVIUL HOSSAIN",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1435.0",
+    "express": "^4.18.2",
+    "mongoose": "^6.0.0",
+    "mysql": "^2.18.1",
+    "mysqlx": "^1.1.8",
+    "plotly": "^1.0.6",
+    "serialport": "^9.2.8"
+  }
+}
