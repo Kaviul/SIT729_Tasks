@@ -30,22 +30,22 @@ function sensortest(){
 
     //MongoDB Connection
 
-    try{
-        mongoose.connect(url, {useUnifiedTopology: true},
-            () => console.log("Mongoose connected"),
-            );
-        } catch (e) {
-            console.log("Mongoose not connected!");
-        }
-        const db1 = mongoose.connection
+    // try{
+    //     mongoose.connect(url, {useUnifiedTopology: true},
+    //         () => console.log("Mongoose connected"),
+    //         );
+    //     } catch (e) {
+    //         console.log("Mongoose not connected!");
+    //     }
+    //     const db1 = mongoose.connection
         
-        db1.on('error', (err) => {
-            console.log(err)
-        })
+    //     db1.on('error', (err) => {
+    //         console.log(err)
+    //     })
         
-        db1.once('open', () => {
-            console.log("Database Connection Established!")
-        })
+    //     db1.once('open', () => {
+    //         console.log("Database Connection Established!")
+    //     })
 
 
     //ScaleGrid MongoDB Connection
@@ -68,7 +68,7 @@ function sensortest(){
     //     })
 
     
-        //AWS DynamoDB Connection
+     //AWS DynamoDB Connection
 
         let awsConfig = {
             "region": "us-east-1",
@@ -79,72 +79,7 @@ function sensortest(){
         AWS.config.update(awsConfig);
         
         let docClient = new AWS.DynamoDB.DocumentClient();
-        
-        // let save = function () {
-        
-        //     var input = {
-        //         "ID": 2, "Name": "heat_sensor", "Address": "120 Elgar Road",
-        //         "DT": "14/1/2023 10:00:22", "Temperature": "32C"
-        //     };
-        //     var params = {
-        //         TableName: "IoT_Data",
-        //         Item:  input
-        //     };
-        //     docClient.put(params, function (err, data) {
-        
-        //         if (err) {
-        //             console.log("users::save::error - " + JSON.stringify(err, null, 2));                      
-        //         } else {
-        //             console.log("users::save::success" );                      
-        //         }
-        //     });
-        // }
-        
-        // save();
-
-
-
-
-//MySQL Connection
-
-
-// var connection = mongoose.createConnection({
-//   host: 'SG-boom-tiger-7766-59231.servers.mongodirector.com:27017/admin ',
-//   user: 'admin',
-//   password: 'QoTcV6tkoblTOm73',
-//   database: "admin",
-//   port: 27017,  
-// });
-// connection.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Scale-Grid MongoDb Connected!");
-// });
-
-// var mysqlx = require('mysqlx');
-// mysqlx.getSession({
-//   host: 'SG-kaviul-mysql-7763-mysql-master.servers.mongodirector.com',
-//   port: '3306',
-//   dbUser: 'kaviuln',
-//   dbPassword: 'K@v1ulho$$@1n',
-//   database: "kaviul-mysql"
-// }).then(function (session) {
-//   var schema = session.getSchema('mySchema');
-//   schema.existsInDatabase().then(function (exists) {
-//     if (!exists) {
-//       session.createSchema('mySchema').then(function(schema){
-//       console.log('Schema created');
-//       session.close();
-//       });
-//     }
-//     else {
-//       console.log('Schema already exists');
-//       session.close();
-//     }
-//   });
-// }).catch(function (err) {
-//   console.log(err.message);
-//   console.log(err.stack);
-// });
+    
 
     //Sensor Data
 
@@ -153,7 +88,7 @@ function sensortest(){
         name: "temperaturesensor",
         address: "221 Burwood Hwy, Burwood VIC 3125",
         time1: Date.now(),
-        time: "12/55/2023 23:00:00",
+        time: Date.now(),
         temperature: 20
         }
     
@@ -177,22 +112,22 @@ function sensortest(){
         newSensor.save().then(doc => {
             // for (i=0; i<=10; i++)
             // {
-            // time = sensordata.time;
+            // time1 = sensordata.time1;
             // endtime = Date.now();
-            // elapsed = ((endtime-time)/1000);
+            // elapsed = ((endtime-time1)/1000);
             // console.log(doc);
-            // console.log("Start-time: ", time);
+            // console.log("Start-time: ", time1);
             // console.log("Time elapsed: ", elapsed, "sec");
             // }
 
-            //time = sensordata.time;
-            //endtime = Date.now();
-            //elapsed = ((endtime-time)/1000);
-            console.log(doc);
+        //     time = sensordata.time;
+        //     endtime = Date.now();
+        //     elapsed = ((endtime-time)/1000);
+        //     console.log(doc);
             time = sensordata.time;
-        //    time1 = sensordata.time1;
-        //    console.log("Start-time: ", time);
-        //    console.log("Time elapsed: ", elapsed, "sec");
+            time1 = sensordata.time1;
+            console.log("Start-time: ", time);
+            console.log("Time elapsed: ", elapsed, "sec");
 
        //AWS Data
 
@@ -222,14 +157,14 @@ function sensortest(){
 
        //Data Push to Plotly-MongoDb
 
-        data.x.push((new Date()).toISOString());
-        data.y.push(time);
-        var graphOptions = {filename: "iot-performance-mongodb", fileopt:
-        "overwrite"};
-        plotly.plot(data, graphOptions, function (err, msg) {
-        if (err) return console.log(err);
-        console.log(msg);
-        });
+        // data.x.push((new Date()).toISOString());
+        // data.y.push(time1);
+        // var graphOptions = {filename: "iot-performance-SG-mongodb", fileopt:
+        // "overwrite"};
+        // plotly.plot(data, graphOptions, function (err, msg) {
+        // if (err) return console.log(err);
+        // console.log(msg);
+        // });
 
 
         // data_sg.x.push((new Date()).toISOString());
@@ -303,46 +238,6 @@ function sensortest(){
 //         })
 
 
-// //MySQL Connection
-
-
-// // var connection = mongoose.createConnection({
-// //   host: 'SG-boom-tiger-7766-59231.servers.mongodirector.com:27017/admin ',
-// //   user: 'admin',
-// //   password: 'QoTcV6tkoblTOm73',
-// //   database: "admin",
-// //   port: 27017,  
-// // });
-// // connection.connect(function(err) {
-// //   if (err) throw err;
-// //   console.log("Scale-Grid MongoDb Connected!");
-// // });
-
-// // var mysqlx = require('mysqlx');
-// // mysqlx.getSession({
-// //   host: 'SG-kaviul-mysql-7763-mysql-master.servers.mongodirector.com',
-// //   port: '3306',
-// //   dbUser: 'kaviuln',
-// //   dbPassword: 'K@v1ulho$$@1n',
-// //   database: "kaviul-mysql"
-// // }).then(function (session) {
-// //   var schema = session.getSchema('mySchema');
-// //   schema.existsInDatabase().then(function (exists) {
-// //     if (!exists) {
-// //       session.createSchema('mySchema').then(function(schema){
-// //       console.log('Schema created');
-// //       session.close();
-// //       });
-// //     }
-// //     else {
-// //       console.log('Schema already exists');
-// //       session.close();
-// //     }
-// //   });
-// // }).catch(function (err) {
-// //   console.log(err.message);
-// //   console.log(err.stack);
-// // });
 
 //     //Sensor Data
 

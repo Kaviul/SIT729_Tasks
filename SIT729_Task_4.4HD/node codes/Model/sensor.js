@@ -14,12 +14,20 @@ const dataSchema = new Schema({
     time: {
         type: Date
     },
-    temperature: {
-        type: Number
+    // temperature: {
+    //     type: Number
 
-    }
+    // },
+
+    sensorData: {
+        type: String
+
+    },
+
 }, {timestamps: true})
 
-const Sensor = mongoose.model('Sensor_Data', dataSchema)
+
+
+const Sensor = mongoose.model('Sensor_Data_4.4HD', dataSchema)
 module.exports = Sensor
 
