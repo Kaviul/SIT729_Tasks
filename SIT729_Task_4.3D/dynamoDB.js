@@ -2,8 +2,8 @@ var AWS = require("aws-sdk");
 let awsConfig = {
     "region": "us-east-1",
     "endpoint": "dynamodb.us-east-1.amazonaws.com",
-    "accessKeyId": "AKIAWUWSR5DTWG2MK5BH", 
-    "secretAccessKey": "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"
+    "accessKeyId": "AKIA5YFH3PY2PC264FFV", 
+    "secretAccessKey": "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"
 };
 AWS.config.update(awsConfig);
 
@@ -13,7 +13,7 @@ let save = function () {
 
     var input = {
         "ID": 2, "Name": "heat_sensor", "Address": "120 Elgar Road",
-        "DT": "14/1/2023 10:00:22", "Temperature": "32C"
+        "T": Date.now(), "Temperature": "32C"
     };
     var params = {
         TableName: "IoT_Data",

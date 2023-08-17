@@ -73,8 +73,8 @@ function sensortest(){
         let awsConfig = {
             "region": "us-east-1",
             "endpoint": "dynamodb.us-east-1.amazonaws.com",
-            "accessKeyId": "AKIAWUWSR5DTWG2MK5BH", 
-            "secretAccessKey": "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"
+            "accessKeyId": "AKIA5YFH3PY2PC264FFV", 
+            "secretAccessKey": "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"
         };
         AWS.config.update(awsConfig);
         
@@ -87,7 +87,7 @@ function sensortest(){
         id: Math.random(),
         name: "temperaturesensor",
         address: "221 Burwood Hwy, Burwood VIC 3125",
-        time1: Date.now(),
+       // time1: Date.now(),
         time: Date.now(),
         temperature: 20
         }
@@ -100,42 +100,45 @@ function sensortest(){
     const jsonString = JSON.stringify(sensordata);
     console.log(jsonString);
     
-    const newSensor = new Sensor({
-        id: sensordata.id,
-        name: sensordata.name,
-        address: sensordata.address,
-        time: sensordata.time,
-        time1: sensordata.time1,
-        temperature: sensordata.temperature
-        });
+    // const newSensor = new Sensor({
+    //     id: sensordata.id,
+    //     name: sensordata.name,
+    //     address: sensordata.address,
+    //     time: sensordata.time,
+    //    // time1: sensordata.time1,
+    //     temperature: sensordata.temperature
+    //     });
 
-        newSensor.save().then(doc => {
-            // for (i=0; i<=10; i++)
-            // {
-            // time1 = sensordata.time1;
-            // endtime = Date.now();
-            // elapsed = ((endtime-time1)/1000);
-            // console.log(doc);
-            // console.log("Start-time: ", time1);
-            // console.log("Time elapsed: ", elapsed, "sec");
-            // }
+    //     newSensor.save().then(doc => {
+    //         // for (i=0; i<=10; i++)
+    //         // {
+    //         // time1 = sensordata.time1;
+    //         // endtime = Date.now();
+    //         // elapsed = ((endtime-time1)/1000);
+    //         // console.log(doc);
+    //         // console.log("Start-time: ", time1);
+    //         // console.log("Time elapsed: ", elapsed, "sec");
+    //         // }
 
-        //     time = sensordata.time;
-        //     endtime = Date.now();
-        //     elapsed = ((endtime-time)/1000);
-        //     console.log(doc);
-            time = sensordata.time;
-            time1 = sensordata.time1;
-            console.log("Start-time: ", time);
+           time = sensordata.time;
+          endtime = Date.now();
+            elapsed = ((endtime-time)/1000);
+    //     //     console.log(doc);
+    //        // time = sensordata.time;
+    //        // time1 = sensordata.time1;
+    //        // console.log("Start-time: ", time);
             console.log("Time elapsed: ", elapsed, "sec");
 
        //AWS Data
 
        let save = function () {
-        
+
+        var endtime = Date.now();
+        var actual_time = ((endtime-time)/1000);
+
         var input = {
             "ID": sensordata.id, "Name": sensordata.name, "Address": sensordata.address,
-            "DT": sensordata.time, "Temperature": sensordata.temperature
+            "T": actual_time, "Temperature": sensordata.temperature
         };
         var params = {
             TableName: "IoT_Data",
@@ -157,14 +160,14 @@ function sensortest(){
 
        //Data Push to Plotly-MongoDb
 
-        // data.x.push((new Date()).toISOString());
-        // data.y.push(time1);
-        // var graphOptions = {filename: "iot-performance-SG-mongodb", fileopt:
-        // "overwrite"};
-        // plotly.plot(data, graphOptions, function (err, msg) {
-        // if (err) return console.log(err);
-        // console.log(msg);
-        // });
+        data.x.push((new Date()).toISOString());
+        data.y.push(elapsed);
+        var graphOptions = {filename: "iot-performance-dynamodb", fileopt:
+        "overwrite"};
+        plotly.plot(data, graphOptions, function (err, msg) {
+        if (err) return console.log(err);
+        console.log(msg);
+        });
 
 
         // data_sg.x.push((new Date()).toISOString());
@@ -187,10 +190,10 @@ function sensortest(){
         // console.log(msg);
         // });
 
-        }).then(() => {
-        //mongoose.connection.close();
-        console.log("SG MongoDB still open");
-        });
+        // }).then(() => {
+        // //mongoose.connection.close();
+        // console.log("SG MongoDB still open");
+        // });
 
  }
 
